@@ -5,9 +5,11 @@ require 'open-uri'
 class WelcomeController < ApplicationController
   def index
   	address = "https://www.abercrombie.com/shop/us/womens-clearance/camille-tank-2329577_02"
-  	address = "https://www.abercrombie.com/shop/us/womens-dresses-clearance/abra-bodycon-midi-dress-2146069_01"
+  	#address = "https://www.abercrombie.com/shop/us/womens-dresses-clearance/abra-bodycon-midi-dress-2146069_01"
 
   	page = Nokogiri::HTML(open(address))
+
+  	@name = page.xpath("//h1[@itemprop='name']/text()").text
 
   	@current_price = page.xpath("//meta[@property='og:price:amount']/@content")
 
