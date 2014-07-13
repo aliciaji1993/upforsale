@@ -9,6 +9,8 @@ class WelcomeController < ApplicationController
 
   	page = Nokogiri::HTML(open(address))
 
+  	@id = address[address.rindex('/')+1..-1]
+
   	@name = page.xpath("//h1[@itemprop='name']/text()").text
 
   	@current_price = page.xpath("//meta[@property='og:price:amount']/@content")
