@@ -9,7 +9,10 @@ class WelcomeController < ApplicationController
 
   	page = Nokogiri::HTML(open(address))
 
-  	@price = page.xpath("//meta[@property='og:price:amount']/@content")
+  	@current_price = page.xpath("//meta[@property='og:price:amount']/@content")
+
+  	list_price = page.xpath("//div[@class='price']/h4[contains(concat(' ', @class, ' '), ' list-price ')]/text()").text
+  	@list_price = list_price.match(/\$(.*)/)[1]
 
   	@sizes = Array.new
   	page.xpath("//select[@class='size-select']/option[@data-size-name]/@data-size-name").each do |size|
